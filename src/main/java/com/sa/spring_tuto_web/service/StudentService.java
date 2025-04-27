@@ -3,13 +3,15 @@ package com.sa.spring_tuto_web.service;
 import com.sa.spring_tuto_web.dao.Impl.StudentDAOImpl;
 import com.sa.spring_tuto_web.dao.StudentDAO;
 import com.sa.spring_tuto_web.model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class StudentService {
 
-    private final StudentDAO studentDAO = new StudentDAOImpl();
+    @Autowired
+    private StudentDAO studentDAO;
 
 
     // Create
