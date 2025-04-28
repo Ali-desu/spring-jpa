@@ -29,6 +29,9 @@ public class StudentController {
 
     @GetMapping("/filter")
     public String filterStudentsByMark(@RequestParam("minMark") double minMark, Model model) {
+        if(minMark <= 0){
+            listStudents(model);
+        }
         model.addAttribute("students", studentService.findByMarkGreaterThan(minMark));
         return "list";
     }
