@@ -5,7 +5,7 @@ import com.sa.spring_tuto_web.model.Student;
 import java.util.List;
 
 public interface StudentDAO {
-    void addStudent(Student student);
+    int addStudent(Student student);
     List<Student> getStudents();
     Student getStudentById(Long id);
     boolean updateStudent(Long id, Student updatedStudent);

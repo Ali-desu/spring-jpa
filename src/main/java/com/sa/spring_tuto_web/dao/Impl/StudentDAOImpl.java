@@ -2,58 +2,73 @@ package com.sa.spring_tuto_web.dao.Impl;
 
 import com.sa.spring_tuto_web.dao.StudentDAO;
 import com.sa.spring_tuto_web.model.Student;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 public class StudentDAOImpl implements StudentDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Override
-    @Transactional
-    public void addStudent(Student student) {
-        entityManager.persist(student);
+    public int addStudent(Student student) {
+        String sql = "insert into student(name,email,major) values(?,?,?)";
+
+        try {
+
+            return jdbcTemplate.update(sql,
+                    new Object[] { student.getName(), student.getEmail(), student.getMajor() });
+
+        } catch (Exception e) {
+            System.out.println("Error inserting student: " + e.getMessage());
+            return 0;
+        }
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Student> getStudents() {
-        return entityManager.createQuery("FROM Student", Student.class).getResultList();
+        String sql = "SELECT * FROM student";
+        List<Student> students = jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Student student = new Student();
+            student.setId(rs.getLong("id"));
+            student.setName(rs.getString("name"));
+            student.setEmail(rs.getString("email"));
+            student.setMajor(rs.getString("major"));
+            return student;
+        });
+        return students;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Student getStudentById(Long id) {
-        return entityManager.find(Student.class, id);
+        String sql = "SELECT * FROM student WHERE id = ?";
+        Student student = jdbcTemplate.queryForObject(sql, new Object[]{id}, (rs, rowNum) -> {
+            Student s = new Student();
+            s.setId(rs.getLong("id"));
+            s.setName(rs.getString("name"));
+            s.setEmail(rs.getString("email"));
+            s.setMajor(rs.getString("major"));
+            return s;
+        });
+        return student;
     }
 
     @Override
-    @Transactional
     public boolean updateStudent(Long id, Student updatedStudent) {
-        Student student = entityManager.find(Student.class, id);
-        if (student != null) {
-            student.setName(updatedStudent.getName());
-            student.setEmail(updatedStudent.getEmail());
-            student.setMajor(updatedStudent.getMajor());
-            return true;
-        }
-        return false;
+        String sql = "UPDATE student SET name = ?, email = ?, major = ? WHERE id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, updatedStudent.getName(), updatedStudent.getEmail(), updatedStudent.getMajor(), id);
+        return rowsAffected > 0;
     }
 
     @Override
-    @Transactional
     public boolean deleteStudent(Long id) {
-        Student student = entityManager.find(Student.class, id);
-        if (student != null) {
-            entityManager.remove(student);
-            return true;
-        }
-        return false;
+        String sql = "DELETE FROM student WHERE id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, id);
+        return rowsAffected > 0;
     }
 }
