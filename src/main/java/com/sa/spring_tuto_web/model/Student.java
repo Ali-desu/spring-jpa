@@ -25,6 +25,8 @@ public class Student {
     @NotBlank(message = "Major is required")
     private String major;
 
+    private double mark;
+
 
     public Student() {
     }
@@ -60,5 +62,13 @@ public class Student {
 
     public void setMajor(String major) {
         this.major = major;
+    }
+
+    public double getMark() {
+        return mark;
+    }
+
+    public void setMark(double mark) {
+        this.mark = mark;
     }
 }

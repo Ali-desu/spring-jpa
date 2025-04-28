@@ -27,6 +27,13 @@ public class StudentController {
         return "list";
     }
 
+    @GetMapping("/filter")
+    public String filterStudentsByMark(@RequestParam("minMark") double minMark, Model model) {
+        model.addAttribute("students", studentService.findByMarkGreaterThan(minMark));
+        return "list";
+    }
+
+
     // Show form for creating a new student
     @GetMapping("/new")
     public String showCreateForm(Model model) {

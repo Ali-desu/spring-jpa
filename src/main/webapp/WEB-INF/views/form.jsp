@@ -114,6 +114,10 @@
     <form:input path="major" id="major"/>
     <form:errors path="major" cssClass="error"/>
 
+    <label for="mark">Mark</label>
+    <form:input path="mark" id="mark"/>
+    <form:errors path="mark" cssClass="error"/>
+
     <button type="submit">Save</button>
 </form:form>
 

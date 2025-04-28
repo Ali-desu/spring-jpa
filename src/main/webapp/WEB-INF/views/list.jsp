@@ -78,6 +78,14 @@
 <h1>Students</h1>
 <a class="add-button" href="${pageContext.request.contextPath}/students/new">Add New Student</a>
 
+<form action="${pageContext.request.contextPath}/students/filter" method="get">
+    <label>
+        <input type="number" step="0.01" name="minMark" placeholder="Enter minimum mark" required />
+    </label>
+    <button type="submit">Filter</button>
+</form>
+
+
 <table>
     <thead>
     <tr>
@@ -85,6 +93,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Major</th>
+        <th>Mark</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -95,6 +104,7 @@
             <td>${student.name}</td>
             <td>${student.email}</td>
             <td>${student.major}</td>
+            <td>${student.mark}</td>
             <td>
                 <a href="${pageContext.request.contextPath}/students/edit/${student.id}">Edit</a>
                 <a href="${pageContext.request.contextPath}/students/delete/${student.id}" onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
