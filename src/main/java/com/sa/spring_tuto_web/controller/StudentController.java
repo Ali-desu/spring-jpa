@@ -55,6 +55,12 @@ public class StudentController {
         return "redirect:/students";
     }
 
+    @GetMapping
+    @RequestMapping("/students-list")
+    public String listStudentsRest() {
+        return "students-list";
+    }
+
     // Show form for editing an existing student
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {

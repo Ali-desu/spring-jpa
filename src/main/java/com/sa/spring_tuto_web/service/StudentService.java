@@ -2,10 +2,13 @@ package com.sa.spring_tuto_web.service;
 
 import com.sa.spring_tuto_web.dao.StudentDAO;
 import com.sa.spring_tuto_web.dao.StudentDAOCRUD;
+import com.sa.spring_tuto_web.dto.StudentDTO;
+import com.sa.spring_tuto_web.mapper.StudentMapper;
 import com.sa.spring_tuto_web.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class StudentService {
@@ -20,8 +23,13 @@ public class StudentService {
     }
 
     // Read all
-    public List<Student> getAllStudents() {
-        return (List<Student>) studentDAO.findAll();
+    public List<StudentDTO> getAllStudents() {
+        List<StudentDTO> studentsDTO = new ArrayList<>();
+        List<Student> students = (List<Student>) studentDAO.findAll();
+        for(Student student : students) {
+            studentsDTO.add(StudentMapper.toDTO(student));
+        }
+        return studentsDTO;
     }
 
     // Read one
@@ -64,6 +72,10 @@ public class StudentService {
     }
 
     public List<Student> findByMarkGreaterThan(double mark) {
-        return studentDAO.findByMarkGreaterThan(mark);
+        return studentDAO.findByMarkGreaterThanEqual(mark);
+    }
+    // find students by mark between
+    public List<Student> findByMarkBetween(double minMark, double maxMark) {
+        return studentDAO.findByMarkBetween(minMark, maxMark);
     }
 }

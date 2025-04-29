@@ -1,19 +1,14 @@
-package com.sa.spring_tuto_web.model;
+package com.sa.spring_tuto_web.dto;
 
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-@Entity
-public class Student {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class StudentDTO {
+
     private Long id;
-
-    private String CIN;
 
     @NotBlank(message = "Name is required")
     @Size(min=3 , max = 30)
@@ -30,7 +25,7 @@ public class Student {
     private double mark;
 
 
-    public Student() {
+    public StudentDTO() {
     }
 
     // Getters and Setters
@@ -74,11 +69,15 @@ public class Student {
         this.mark = mark;
     }
 
-    public String getCIN() {
-        return CIN;
+    @Override
+    public String toString() {
+        return "StudentDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", major='" + major + '\'' +
+                ", mark=" + mark +
+                '}';
     }
 
-    public void setCIN(String CIN) {
-        this.CIN = CIN;
-    }
 }
