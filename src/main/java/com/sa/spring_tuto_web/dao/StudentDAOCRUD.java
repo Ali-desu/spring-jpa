@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface StudentDAOCRUD extends CrudRepository<Student, Long> {
     List<Student> findByMarkGreaterThanEqual(double mark);
-
     List<Student> findByMarkBetween(double markAfter, double markBefore);
 }

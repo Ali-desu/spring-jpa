@@ -34,7 +34,6 @@
 </table>
 
 
-<a href="${pageContext.request.contextPath}/api/students">go</a>
 
 <script>
     // Fetch students from the API
