@@ -3,11 +3,11 @@ package com.sa.spring_tuto_web.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer  {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { AppConfig.class }; // global beans (DataSource, Services, Security, etc)
+        return new Class[] {  WebSecurityConfig.class,AppConfig.class }; // global beans (DataSource, Services, Security, etc)
     }
 
     @Override
