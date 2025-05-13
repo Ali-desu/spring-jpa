@@ -4,10 +4,7 @@ import com.sa.spring_tuto_web.dto.StudentDTO;
 import com.sa.spring_tuto_web.model.Student;
 import com.sa.spring_tuto_web.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +13,7 @@ import java.util.Map;
 // UserController handles HTTP requests related to users
 @RestController
 @RequestMapping("/api")  // Base URL for all methods in this controller
+@CrossOrigin(origins = "*") // Allows cross-origin requests from any domain
 public class StuController {
     // Injecting the StudentService to handle business logic
 
