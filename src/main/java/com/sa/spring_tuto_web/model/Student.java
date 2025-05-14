@@ -27,10 +27,20 @@ public class Student {
     @Email
     private String email;
 
+    @ManyToMany
+    @JoinTable(
+            name = "student_module",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "module_id")
+    )
+    private List<Module> modules = new ArrayList<>();
+
     @NotBlank(message = "Major is required")
     private String major;
 
     private double mark;
+
+
 
 
     public Student() {
@@ -83,5 +93,13 @@ public class Student {
 
     public void setCIN(String CIN) {
         this.CIN = CIN;
+    }
+
+    public List<Module> getModules() {
+        return modules;
+    }
+
+    public void setModules(List<Module> modules) {
+        this.modules = modules;
     }
 }

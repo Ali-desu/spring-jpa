@@ -1,0 +1,12 @@
+GET http://localhost:9090/spring_tuto_web_war_exploded/
+
+###
+
+POST http://localhost:9090/spring_tuto_web_war_exploded/api/accounts
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin",
+  "role": "ADMIN"
+}

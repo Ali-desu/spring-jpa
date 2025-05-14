@@ -1,22 +1,27 @@
 package com.sa.spring_tuto_web.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherDTO {
     private Long id;
     private String name;
-    private List<ModuleDTO> modules = new ArrayList<>();
+    private String email;
+    private String accountUsername;
+    private List<Long> moduleIds;
 
+    // Constructors
     public TeacherDTO() {
     }
 
-    public TeacherDTO(Long id, String name, List<ModuleDTO> modules) {
+    public TeacherDTO(Long id, String name, String email, String accountUsername, List<Long> moduleIds) {
         this.id = id;
         this.name = name;
-        this.modules = modules;
+        this.email = email;
+        this.accountUsername = accountUsername;
+        this.moduleIds = moduleIds;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -33,11 +38,27 @@ public class TeacherDTO {
         this.name = name;
     }
 
-    public List<ModuleDTO> getModules() {
-        return modules;
+    public String getEmail() {
+        return email;
     }
 
-    public void setModules(List<ModuleDTO> modules) {
-        this.modules = modules;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAccountUsername() {
+        return accountUsername;
+    }
+
+    public void setAccountUsername(String accountUsername) {
+        this.accountUsername = accountUsername;
+    }
+
+    public List<Long> getModuleIds() {
+        return moduleIds;
+    }
+
+    public void setModuleIds(List<Long> moduleIds) {
+        this.moduleIds = moduleIds;
     }
 }

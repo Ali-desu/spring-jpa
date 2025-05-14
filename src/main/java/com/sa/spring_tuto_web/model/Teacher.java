@@ -1,6 +1,8 @@
 package com.sa.spring_tuto_web.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,21 +12,33 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotBlank(message = "Name is required")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id")
-    private List<Module> module = new ArrayList<>();
+    @NotBlank(message = "Email is required")
+    @Email
+    private String email;
+
+    @OneToOne
+    @JoinColumn(name = "account_username", referencedColumnName = "username")
+    private Account account;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher")
+    private List<Module> modules = new ArrayList<>();
 
     public Teacher() {
     }
 
-    public Teacher(Long id, String name, List<Module> modules) {
+    public Teacher(Long id, String name, String email, Account account, List<Module> modules) {
         this.id = id;
         this.name = name;
-        this.module = modules;
+        this.email = email;
+        this.account = account;
+        this.modules = modules;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -41,12 +55,28 @@ public class Teacher {
         this.name = name;
     }
 
-    public List<Module> getModule() {
-        return module;
+    public String getEmail() {
+        return email;
     }
 
-    public void setModule(List<Module> module) {
-        this.module = module;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public List<Module> getModules() {
+        return modules;
+    }
+
+    public void setModules(List<Module> modules) {
+        this.modules = modules;
     }
 
     @Override
@@ -54,7 +84,9 @@ public class Teacher {
         return "Teacher{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", modules=" + module +
+                ", email='" + email + '\'' +
+                ", account=" + account +
+                ", modules=" + modules +
                 '}';
     }
 }

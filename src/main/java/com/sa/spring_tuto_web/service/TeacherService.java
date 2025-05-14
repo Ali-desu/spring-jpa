@@ -17,8 +17,6 @@ public class TeacherService {
     @Autowired
     private TeacherDAOCRUD teacherDAOCRUD;
 
-    @Autowired
-    private TeacherMapper teacherMapper;
 
     public void saveTeacher(Teacher teacher) {
         teacherDAOCRUD.save(teacher);
@@ -28,13 +26,17 @@ public class TeacherService {
         return teacherDAOCRUD.findById(id).orElse(null);
     }
 
+    public Teacher getTeacherByUsername(String username) {
+        return teacherDAOCRUD.findByAccountUsername(username);
+    }
+
     public void deleteTeacherById(Long id) {
         teacherDAOCRUD.deleteById(id);
     }
 
     public List<TeacherDTO> getAllTeachers() {
         List<Teacher> teachers = (List<Teacher>) teacherDAOCRUD.findAll();
-        return teacherMapper.toDTOList(teachers);
+        return TeacherMapper.toDTOList(teachers);
     }
 
     public void updateTeacher(Teacher teacher) {
